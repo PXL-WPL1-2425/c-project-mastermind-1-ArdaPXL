@@ -74,6 +74,40 @@ namespace Mastermind
             if (colorName == "Blue") return Brushes.Blue;
             return Brushes.Transparent;
         }
+        private void CheckButton_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBox[] comboBoxes = { ComboBox1, ComboBox2, ComboBox3, ComboBox4 };
+            List<string> selectedColors = new List<string>();
+
+            for (int i = 0; i < comboBoxes.Length; i++)
+            {
+                if (comboBoxes[i].SelectedItem != null)
+                {
+                    selectedColors.Add(comboBoxes[i].SelectedItem.ToString());
+                }
+                else
+                {
+                    selectedColors.Add(null);
+                }
+            }
+
+            System.Windows.Controls.Label[] labels = { Label1, Label2, Label3, Label4 };
+            for (int i = 0; i < labels.Length; i++)
+            {
+                if (selectedColors[i] == code[i])
+                {
+                    labels[i].BorderBrush = Brushes.Green; // Correct color and position
+                }
+                else if (code.Contains(selectedColors[i]))
+                {
+                    labels[i].BorderBrush = Brushes.Orange; // Correct color, wrong position
+                }
+                else
+                {
+                    labels[i].BorderBrush = Brushes.DarkRed; // Incorrect color
+                }
+            }
+        }
 
 
 
