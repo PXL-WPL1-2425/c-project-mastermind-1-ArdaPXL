@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,11 +22,13 @@ namespace Mastermind
     {
         private List<string> colors = new List<string> { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
         private List<string> code;
+        private List<string> attempts;
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeGame();
+            
         }
 
         private void InitializeGame()
@@ -33,11 +36,18 @@ namespace Mastermind
             // Generate a random code
             Random rand = new Random();
             code = new List<string>();
+            //attempts = new List<string>();
             for (int i = 0; i < 4; i++)
             {
+                //code.Add(attempts[rnd.Next(attempts.Count)]);
                 code.Add(colors[rand.Next(colors.Count)]);
             }
-            this.Title = "Mastermind - Code: " + string.Join(", ", code);
+            int poging = rand.Next(0, 5);
+            this.Title = $"Mastermind - Code: {string.Join(", ", code)} -- Pogingen: {poging}";
+                //"Mastermind - Code: " + string.Join(", ", code) + "pogingen:" + poging;
+
+
+
 
             // Populate ComboBoxes with color options
             ComboBox[] comboBoxes = { ComboBox1, ComboBox2, ComboBox3, ComboBox4 };
@@ -90,7 +100,6 @@ namespace Mastermind
                     selectedColors.Add(null);
                 }
             }
-
             System.Windows.Controls.Label[] labels = { Label1, Label2, Label3, Label4 };
             for (int i = 0; i < labels.Length; i++)
             {
